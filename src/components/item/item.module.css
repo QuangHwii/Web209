@@ -1,0 +1,3 @@
+.abc {
+    @apply flex justify-between items-center p-2 text-center
+}
