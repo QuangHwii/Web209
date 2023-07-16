@@ -35,7 +35,8 @@ function App() {
         {/* <Table columns={columns} dataSource={carsData} /> */}
         {/* <Table columns={columns1} dataSource={postData}/> */}
         <ProductsList />
-        {/* <Counter /> */}
+        <hr className='m-3'/>
+        <Counter />
       </div>
     </>
   );

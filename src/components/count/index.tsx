@@ -1,15 +1,26 @@
+
 import { useContext } from "react"
-import { ProductContext } from "../context/productContext"
+import { CounterContext } from "../context/CounterProvider"
 
 
 const Counter = () => {
-    const { count, tang, giam } = useContext(ProductContext)
+    const { state, dispatch } = useContext(CounterContext)
     return (
         <div>
-            Counter: {count}
+            Counter : {state.count}
 
-            <button onClick={() => tang()}>+</button>
-            <button onClick={() => giam()}>-</button>
+            <button className="border border-gray-500 p-2"
+                onClick={() => dispatch({ type: "INCREMENT" })}>
+                Tăng
+            </button>
+            <button className="border border-gray-500 p-2"
+                onClick={() => dispatch({ type: "DECREMENT" })}>
+                Giảm
+            </button>
+            <button className="border border-gray-500 p-2"
+                onClick={() => dispatch({ type: "INCREASE", payload: 10 })}>
+                Tăng 10
+            </button>
         </div>
     )
 }
