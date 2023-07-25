@@ -5,7 +5,6 @@ import { addProduct, fetchProducts, removeProduct, updateProduct } from '../acti
 const ProductsList = () => {
     const dispatch: Dispatch<any> = useDispatch()
     const { products, isLoading, error } = useSelector((state: any) => state.products);
-
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch])
@@ -15,14 +14,26 @@ const ProductsList = () => {
     if (error) return <div>{error}</div>;
     return (
         <div>
+
             {products?.map((item: any) => (
-                <div key={item.id}>{item.name}</div>
+                <div key={item.id}>
+                    {item.name}
+                    <button
+                        className="border border-green-500 ml-3 p-1"
+                        onClick={() =>
+                            dispatch({ type: "cart/add", payload: { ...item, quantity: 1 } })
+                        }
+                    >
+                        Add to cart
+                    </button>
+
+                </div>
             ))}
-            <button onClick={() => addProduct({ name: "Product C" })}>Add</button>
-            <button onClick={() => updateProduct({ name: "Product C updated", id: 3 })}>
+            <button onClick={() => dispatch(addProduct({ name: "Product C" }))}>Add</button>
+            <button onClick={() => dispatch(updateProduct({ name: "Product C updated", id: 3 }))}>
                 Update
             </button>
-            <button onClick={() => removeProduct(3)}>Delete</button>
+            <button onClick={() => dispatch(removeProduct(3))}>Delete</button>
         </div>
     )
 }

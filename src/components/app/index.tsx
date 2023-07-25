@@ -2,6 +2,7 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware, co
 import { CounterReducer } from '../reducers/Counter'
 import { productReducer } from '../reducers/Product'
 import thunk from 'redux-thunk'
+import { cartReducer } from '../reducers/cart';
 
 
 const composeEnhancers =
@@ -15,7 +16,8 @@ const enhancer = composeEnhancers(applyMiddleware(thunk))
 
 const rootReducer = combineReducers({
     counter: CounterReducer,
-    products: productReducer
+    products: productReducer,
+    cart: cartReducer
 })
 
 const store = createStore(rootReducer, enhancer)
