@@ -4,7 +4,7 @@ import { increment, decrement, increase } from '../Slices/Counter';
 const Counter = () => {
     const dispatch = useAppDispatch()
     const state = useAppSelector((state) => state)
-    console.log(state);
+    // console.log(state);
 
     return <div>
         {state?.counter?.count}
