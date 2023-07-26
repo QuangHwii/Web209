@@ -1,15 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { increment, decrement, increase } from '../Slices/Counter';
 
 const Counter = () => {
-    const dispatch = useDispatch()
-    const state = useSelector((state) => state)
+    const dispatch = useAppDispatch()
+    const state = useAppSelector((state) => state)
     console.log(state);
 
     return <div>
         {state?.counter?.count}
-        <button className='border border-red-500 p-2' onClick={() => dispatch({ type: "counter/increment" })}>INCREMENT</button>
-        <button className='border border-red-500 p-2' onClick={() => dispatch({ type: "counter/decrement" })}>DECREMENT</button>
-        <button className='border border-red-500 p-2' onClick={() => dispatch({ type: "counter/increase", payload: 10 })}>INCREASE</button>
+        <button className='border border-red-500 p-2' onClick={() => dispatch(increment())}>INCREMENT</button>
+        <button className='border border-red-500 p-2' onClick={() => dispatch(decrement())}>DECREMENT</button>
+        <button className='border border-red-500 p-2' onClick={() => dispatch(increase(10))}>INCREASE</button>
 
     </div>
 }
