@@ -1,27 +1,29 @@
 import { useState } from 'react';
 import './App.css';
 import { ICar } from './components/interface/car';
-import { Button, List } from './components';
-import Form from './components/form';
-import Table from './components/Table/table';
-import ProductsList from './components/productsList';
-import Counter from './components/count';
+// import { Button, List } from './components';
+// import Form from './components/form';
+// import Table from './components/Table/table';
+// import ProductsList from './components/productsList';
+// import Counter from './components/count';
+import { RouterProvider } from 'react-router-dom'
+import { routers } from './routers';
 
 function App() {
 
 
 
-  const [cars, setCar] = useState<ICar[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [cars, setCar] = useState<ICar[]>([]);
+  // const [loading, setLoading] = useState<boolean>(true);
 
-  const [error, setError] = useState<null>(null);
+  // const [error, setError] = useState<null>(null);
 
-  const addCar = (car: ICar) => {
-    setCar([...cars, car])
-  };
-  const removeCar = (id: number | string) => {
-    setCar(cars.filter((item) => item.id !== id))
-  };
+  // const addCar = (car: ICar) => {
+  //   setCar([...cars, car])
+  // };
+  // const removeCar = (id: number | string) => {
+  //   setCar(cars.filter((item) => item.id !== id))
+  // };
 
 
 
@@ -34,9 +36,11 @@ function App() {
         <hr /> */}
         {/* <Table columns={columns} dataSource={carsData} /> */}
         {/* <Table columns={columns1} dataSource={postData}/> */}
-        <ProductsList />
+        {/* <ProductsList />
         <hr className='m-3'/>
-        <Counter />
+        <Counter /> */}
+
+        <RouterProvider router={routers}></RouterProvider>
       </div>
     </>
   );
