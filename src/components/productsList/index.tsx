@@ -1,67 +1,41 @@
-import { useContext, useEffect } from "react"
-import { ProductContext } from "../context/productProvider"
-import axios from "axios"
+import { Dispatch, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, fetchProducts, removeProduct, updateProduct } from '../actions/products';
 
 const ProductsList = () => {
-    const { state, dispatch } = useContext(ProductContext)
-
+    const dispatch: Dispatch<any> = useDispatch()
+    const { products, isLoading, error } = useSelector((state: any) => state.products);
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const { data } = await axios.get(`http://localhost:3000/products`);
-                dispatch({ type: "product/fetch", payload: data })
-            } catch (error: any) {
-                console.log(error?.message);
+        dispatch(fetchProducts())
+    }, [dispatch])
 
-            }
-        }
-        fetchProduct()
-
-    }, [])
-    const addProduct = async (product: any) => {
-        try {
-            const { data } = await axios.post(`http://localhost:3000/products`, product)
-            dispatch({ type: "product/add", payload: data })
-        } catch (error: any) {
-            console.log(error?.message);
-        }
-    }
-
-    const removeProduct = async (product: any) => {
-        try {
-            await axios.delete(`http://localhost:3000/products/${product.id}`)
-            dispatch({ type: "product/delete", payload: product.id })
-        } catch (error: any) {
-            console.log(error?.message);
-        }
-    }
-
-    const updateProduct = async (product: any) => {
-        try {
-            // call api
-            const { data } = await axios.put(
-                `http://localhost:3000/products/${product.id}`,
-                product
-            );
-            // rerender
-            dispatch({ type: "product/update", payload: data });
-        } catch (error: any) {
-            console.log(error.message);
-        }
-    };
-
+    // console.log("state", products);
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
     return (
         <div>
-            {state?.products?.map((item: any) => (
 
-                <div key={item.id}>{JSON.stringify(item.id)}{item?.name}</div>
+            {products?.map((item: any) => (
+                <div key={item.id}>
+                    {item.name}
+                    <button
+                        className="border border-green-500 ml-3 p-1"
+                        onClick={() =>
+                            dispatch({ type: "cart/add", payload: { ...item, quantity: 1 } })
+                        }
+                    >
+                        Add to cart
+                    </button>
+
+                </div>
             ))}
-            <button onClick={() => addProduct({ name: "Product C" })} className="border border-red-500 mr-2">Add</button>
-            <button onClick={() => updateProduct({ id: 3, name: "Product C update" })} className="border border-red-500 mr-2">Edit</button>
-            <button onClick={() => removeProduct({ id: 3 })} className="border border-red-500 mr-2">Remove</button>
+            <button onClick={() => dispatch(addProduct({ name: "Product C" }))}>Add</button>
+            <button onClick={() => dispatch(updateProduct({ name: "Product C updated", id: 3 }))}>
+                Update
+            </button>
+            <button onClick={() => dispatch(removeProduct(3))}>Delete</button>
         </div>
     )
 }
-// tìm hiểu useReducer
 
 export default ProductsList 

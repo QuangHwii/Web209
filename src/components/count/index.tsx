@@ -1,28 +1,17 @@
-
-import { useContext } from "react"
-import { CounterContext } from "../context/CounterProvider"
-
+import { useSelector, useDispatch } from 'react-redux'
 
 const Counter = () => {
-    const { state, dispatch } = useContext(CounterContext)
-    return (
-        <div>
-            Counter : {state.count}
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state)
+    console.log(state);
 
-            <button className="border border-gray-500 p-2"
-                onClick={() => dispatch({ type: "INCREMENT" })}>
-                Tăng
-            </button>
-            <button className="border border-gray-500 p-2"
-                onClick={() => dispatch({ type: "DECREMENT" })}>
-                Giảm
-            </button>
-            <button className="border border-gray-500 p-2"
-                onClick={() => dispatch({ type: "INCREASE", payload: 10 })}>
-                Tăng 10
-            </button>
-        </div>
-    )
+    return <div>
+        {state?.counter?.count}
+        <button className='border border-red-500 p-2' onClick={() => dispatch({ type: "counter/increment" })}>INCREMENT</button>
+        <button className='border border-red-500 p-2' onClick={() => dispatch({ type: "counter/decrement" })}>DECREMENT</button>
+        <button className='border border-red-500 p-2' onClick={() => dispatch({ type: "counter/increase", payload: 10 })}>INCREASE</button>
+
+    </div>
 }
 
 export default Counter

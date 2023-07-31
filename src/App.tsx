@@ -6,6 +6,7 @@ import Form from './components/form';
 import Table from './components/Table/table';
 import ProductsList from './components/productsList';
 import Counter from './components/count';
+import Cart from './components/cart';
 
 function App() {
 
@@ -34,9 +35,11 @@ function App() {
         <hr /> */}
         {/* <Table columns={columns} dataSource={carsData} /> */}
         {/* <Table columns={columns1} dataSource={postData}/> */}
-        <ProductsList />
-        <hr className='m-3'/>
+        {/* <ProductsList /> */}
+        <hr className='m-3' />
         <Counter />
+        <hr className='m-3' />
+        {/* <Cart /> */}
       </div>
     </>
   );
